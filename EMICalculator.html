@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>git remote add origin https://github.com/Shubham-Patel9977/Public.git
+        <title>EMI Calculator</title>
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <style>
+            input[type="range"] {
+                width:280px;
+              }
+              h1{
+                text-align: center;
+                padding: 10px;
+                background-color: black;
+                color: white;
+                margin-top: 10px;
+              }
+              #displayresult{
+                display: flex;
+                align-self: center;
+                font-size: 40px;
+              }
+        </style>
+        <script>
+            function AmountRange(){
+              var ammount= document.getElementById("AmtRange").value
+              document.getElementById("AmtText").value=ammount
+                   
+            }
+          function UpdateIntrest(){
+            var Intrest= document.getElementById("IntrestRange").value
+            document.getElementById("IntrestText").value=Intrest
+          }
+          function UpdateTime(){
+            var time= document.getElementById("TimeRange").value
+            document.getElementById("TimeText").value=time
+          }
+          function AmountText(){
+            var ammount=document.getElementById("AmtText").value;
+            if(ammount<1000){
+                ammount=1000;
+                document.getElementById("AmtText").value= 1000;
+            }
+            else if(ammount>10000000){
+                ammount=10000000;
+                document.getElementById("AmtText").value=10000000;
+            }
+            document.getElementById("AmtRange").value=ammount;
+          }
+          function UpdateIntrestText(){
+            var intrest=document.getElementById("IntrestText").value;
+            if(intrest<8){
+                intrest=8;
+                document.getElementById("IntrestText").value=intrest;
+            }
+            else if(intrest>25){
+                intrest=25;
+                document.getElementById("IntrestText").value=intrest;
+            }
+            document.getElementById("IntrestRange").value=intrest;
+          }
+          function UpdateTimeText(){
+            var time=document.getElementById("TimeText").value;
+            if(time<1){
+                time = 1;
+                document.getElementById("TimeText").value=time;
+            }
+            else if(time>10){
+                time=10;
+                document.getElementById("TimeText").value=time;
+            }
+            document.getElementById("TimeRange").value=time;
+          }
+
+        
+        function Calculate(){
+            var p = parseInt(document.getElementById("AmtText").value);
+            var rate = parseInt(document.getElementById("IntrestText").value);
+            var t = parseInt(document.getElementById("TimeText").value);
+             var r= rate/(12*100);
+             var n =12*t;
+            
+            console.log(n)
+           var emi= Math.round( p * r * (1 + r)**n/((1 + r)**n - 1));
+          
+           
+           document.getElementById("Display").innerHTML=`<b id ="displayresult">Your Monthly Emi iS ${emi}</b>`;
+
+        }
+
+        </script>
+       
+    </head>
+    <body classs="container-fluid">
+        <h1>Calculate EMI</h1>
+        <div class="row mt-4">
+            <div class="col">
+              <div class="input-group p-3">
+               <b class="m-2">Ammount</b>  <input type="text" placeholder="Enter Ammount" id="AmtText" onchange="AmountText()" class="form-control">
+              </div>
+               
+            </div>
+            <div class="col">
+              <div class="input-group p-3">
+               <b class="m-2">Intrest rate </b> <input type="text" placeholder="Enter Intrest rate"id="IntrestText" onchange="UpdateIntrestText()"class="form-control"><b class="m-2">%</b>
+              </div>
+
+
+            </div>
+            <div class="col">
+                <div class="input-group p-3">
+                    <b class="m-2">Time</b>  <input type="text" placeholder="Time in year" id="TimeText" onchange="UpdateTimeText()" class="form-control">
+                </div>
+    
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                
+                  <div  class="input-group p-4 justify-content-center">
+
+                    1000  <input type="range" min="1000"value="1000" max="10000000" id="AmtRange" onchange="AmountRange()"> 10000000
+                  </div>
+               
+            </div>
+            <div class="col ">
+                <div class="input-group p-4 justify-content-center">
+                    8%  <input type="range" id="IntrestRange" onchange="UpdateIntrest()" value="8" step="0.5" min="8" max="25"> 25%  
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group p-4 justify-content-center">
+                    1  <input type="range" id="TimeRange" onchange="UpdateTime()" value="1" min="1" max="10"> 10
+                </div>
+            </div>
+        </div>
+        <div class=" d-flex justify-content-center">
+          
+             <button class="btn btn-primary w-25 " onclick="Calculate()">Calculate your EMI </button>
+      
+        </div>
+        <div id="Display">
+
+        </div>
+    </body>
+</html>
